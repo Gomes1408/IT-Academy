@@ -135,8 +135,7 @@ def funcao3(anosNovo,medias):
             print('Ano inválido!')
 """
 Função implementada para funcionalidade 3. Primeiramente, faz o pedido do ano desejado e depois sua consistência.
-Então, para cada indivíduo com ano corresponde, o valor de sua bolsa é adicionado a uma variável acumulativa e um contador de pessoas
-é incrementado. Depois, é feita a média anual. 
+Então, para o ano desejado, é feito o print da média anual.
 """
 
 def funcao4(pessoas,lista_decrescente,lista_crescente):
@@ -147,9 +146,7 @@ def funcao4(pessoas,lista_decrescente,lista_crescente):
     print('\nTop 3 menores bolsas:\n')
     lista_ranking(pessoas,lista_crescente)
 """
-Função implementada para funcionalidade 4. A partir de uma lista de informações de pessoas são retirados valores de bolsas
-e colocados em uma lista de valores. Tal lista é organizada com a função sorted de forma crescente e decrescente sendo criadas
-duas novas listas. Então, a função de listar um ranking, top 3, é chamada passando como parâmetro as duas novas listas e as 
+Função implementada para funcionalidade 4. A função de listar um ranking, top 3, é chamada passando como parâmetro as duas novas listas, que já foram formadas, e as 
 informações são dispostas na tela.
 """
     
