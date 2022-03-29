@@ -1,4 +1,6 @@
 import unicodedata
+
+from numpy import append
 """
 Importação da unicodedata para desenvolvimento da função de tratamento de nomes.
 """
@@ -120,22 +122,15 @@ sobre o indivíduo obtidas da mesma lista de pessoas, que contém suas informaç
 aviso informando.
 """
 
-def funcao3(anosNovo,pessoas):
+def funcao3(anosNovo,medias):
     existe = False
     while(existe == False):
         ano = input('\nInsira o ano desejado:\n')
         existe = ano_existe(anosNovo,existe,ano)
         if(existe):
-            soma_valores = 0
-            total_pessoas=0
-            for t in range(len(anosNovo)):
-                if(ano == anosNovo[t]):
-                    for i in range(len(pessoas)):
-                        if(pessoas[i].ano == anosNovo[t]):
-                            soma_valores += float(pessoas[i].bolsa)
-                            total_pessoas += 1 
-            media=float(soma_valores/total_pessoas)
-            print('Média anual: R$',round(media,2),'\n')
+            for t in range(len(medias)):
+                if(medias[t][0]==ano):
+                    print('Média anual: R$',round(medias[t][1],2),'\n')
         else:
             print('Ano inválido!')
 """
@@ -144,13 +139,7 @@ Então, para cada indivíduo com ano corresponde, o valor de sua bolsa é adicio
 é incrementado. Depois, é feita a média anual. 
 """
 
-def funcao4(pessoas):
-    lista_valores = []
-    
-    for x in range(len(pessoas)):
-        lista_valores.append(float(pessoas[x].bolsa))
-    lista_crescente = sorted(lista_valores, reverse = False)
-    lista_decrescente = sorted(lista_valores, reverse = True)
+def funcao4(pessoas,lista_decrescente,lista_crescente):
    
     print('\nTop 3 maiores bolsas:\n')
     lista_ranking(pessoas,lista_decrescente)
@@ -192,7 +181,37 @@ def main():
         if(verifica_presença):
             anosNovo.append(anos[t])
         verifica_presença = True 
-    #a partir da lista com todos os anos, incluindo cópias, é feita uma lista nova, mas sem cópias.  
+    #a partir da lista com todos os anos, incluindo cópias, é feita uma lista nova, mas sem cópias. 
+
+
+    medias = []
+    #lista que salva em cada posição uma outra lista que contém dois elementos.
+    #o primeiro: um ano; o segundo: a media do valor de bolsa do respectivo ano.
+    soma_valores = 0
+    total_pessoas=0
+    for t in range(len(anosNovo)):
+        segura = []
+        #lista que guarda um ano e sua media anual de valor de bolsa.
+        #essa lista é guardada dentro da lista 'medias' e a cada iteração é zerada.
+        soma_valores = 0
+        total_pessoas = 0
+        segura.append(anosNovo[t])
+        for i in range(len(pessoas)):
+            if(pessoas[i].ano == anosNovo[t]):
+                soma_valores += float(pessoas[i].bolsa)
+                total_pessoas += 1 
+        media=float(soma_valores/total_pessoas)
+        segura.append(media)
+        medias.append(segura)
+
+
+    lista_valores = []
+    #lista com valores de bolsas
+    
+    for x in range(len(pessoas)):
+        lista_valores.append(float(pessoas[x].bolsa))
+    lista_crescente = sorted(lista_valores, reverse = False)
+    lista_decrescente = sorted(lista_valores, reverse = True) 
     
     opcao=0
     while(opcao!=5):
@@ -203,9 +222,9 @@ def main():
             elif(opcao==2):
                 funcao2(pessoas)
             elif(opcao==3):
-                funcao3(anosNovo,pessoas)
+                funcao3(anosNovo,medias)
             elif(opcao==4):
-                funcao4(pessoas)
+                funcao4(pessoas,lista_decrescente,lista_crescente)
             else:
                 break
         else:
